@@ -26,6 +26,7 @@ public class Girl : MonoBehaviour
         HP = MaxHP;
         DC = FindObjectOfType<DropCounter>();
         HitPointBar = GameObject.FindGameObjectWithTag("HitPoints").transform;
+        HitPointBar.localScale = Vector3.one;
     }
 
     
@@ -70,8 +71,11 @@ public class Girl : MonoBehaviour
         {
             Shooting = true;
             yield return new WaitForSeconds(0.33f);
-            Instantiate(Bullet, bulletSpawn.position, bulletSpawn.rotation);
-            yield return new WaitForSeconds(0.67f);
+            if (Joystick.Direction.magnitude == 0)
+            {
+                Instantiate(Bullet, bulletSpawn.position, bulletSpawn.rotation);
+                yield return new WaitForSeconds(0.67f);
+            }
             Shooting = false;
         }
     }
